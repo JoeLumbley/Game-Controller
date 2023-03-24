@@ -188,9 +188,6 @@ Public Class Form1
                         End Select
                     End If
 
-
-
-
                     'Xbox left stick
                     If (.dwYpos - 32767) / 32768.0 = 1 Then
 
@@ -211,9 +208,6 @@ Public Class Form1
                                 Text = ""
                         End Select
                     End If
-
-
-                    'Text = (.dwXpos - 32767) / 32768.0
 
                     If (.dwXpos - 32767) / 32768.0 > 0 Then
 
