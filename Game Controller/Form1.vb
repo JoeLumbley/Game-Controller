@@ -35,13 +35,13 @@ Public Class Form1
         Public dwFlags As Integer
         Public dwXpos As Integer
         Public dwYpos As Integer
-        Public dwZpos As Integer
+        Public dwZpos As Integer 'Xbox: Trigger
         Public dwRpos As Integer
         Public dwUpos As Integer
         Public dwVpos As Integer
         Public dwButtons As Integer
         Public dwButtonNumber As Integer
-        Public dwPOV As Integer
+        Public dwPOV As Integer 'D-Pad
         Public dwReserved1 As Integer
         Public dwReserved2 As Integer
     End Structure
@@ -140,7 +140,6 @@ Public Class Form1
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Down Right"
                     End If
 
-
                     If .dwPOV = 65535 Then
                         If Text = "Joystick: " & CStr(JNum) & " D-Pad: Up" Then
                             Text = ""
@@ -166,6 +165,27 @@ Public Class Form1
                         If Text = "Joystick: " & CStr(JNum) & " D-Pad: Right" Then
                             Text = ""
                         End If
+                    End If
+
+                    'Xbox trigger buttons
+                    If (.dwZpos - 32767) / 32768.0 > 0 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Button: Left Trigger"
+
+                    End If
+                    If (.dwZpos - 32767) / 32768.0 < 0 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Button: Right Trigger"
+
+                    End If
+
+                    If (.dwZpos - 32767) / 32768.0 = 0 Then
+                        Select Case Text
+                            Case "Joystick: " & CStr(JNum) & " Button: Right Trigger"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Button: Left Trigger"
+                                Text = ""
+                        End Select
                     End If
 
                 End With
