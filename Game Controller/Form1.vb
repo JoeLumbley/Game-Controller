@@ -188,6 +188,54 @@ Public Class Form1
                         End Select
                     End If
 
+
+
+
+                    'Xbox left stick
+                    If (.dwYpos - 32767) / 32768.0 = 1 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Left Stick: Down"
+
+                    End If
+                    If (.dwYpos - 32767) / 32768.0 < 0 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Left Stick: Up"
+
+                    End If
+
+                    If CInt((.dwYpos - 32767) / 32768.0) = 0 Then
+                        Select Case Text
+                            Case "Joystick: " & CStr(JNum) & " Left Stick: Down"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Left Stick: Up"
+                                Text = ""
+                        End Select
+                    End If
+
+
+                    'Text = (.dwXpos - 32767) / 32768.0
+
+                    If (.dwXpos - 32767) / 32768.0 > 0 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Left Stick: Right"
+
+                    End If
+                    If (.dwXpos - 32767) / 32768.0 < 0 Then
+
+                        Text = "Joystick: " & CStr(JNum) & " Left Stick: Left"
+
+                    End If
+
+                    If CInt((.dwXpos - 32767) / 32768.0) = 0 Then
+                        Select Case Text
+                            Case "Joystick: " & CStr(JNum) & " Left Stick: Right"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Left Stick: Left"
+                                Text = ""
+                        End Select
+                    End If
+
+
                 End With
 
             End If
