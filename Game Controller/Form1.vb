@@ -87,8 +87,6 @@ Public Class Form1
                             Text = "Joystick: " & CStr(JNum) & " Button: Back / Left Trigger"
                         Case 128
                             Text = "Joystick: " & CStr(JNum) & " Button: Start / Right Trigger"
-                        Case 256
-                            Text = "Joystick: " & CStr(JNum) & " Button: 256"
                     End Select
                     If .dwButtons = 0 Then
 
