@@ -87,6 +87,21 @@ Public Class Form1
                             Text = "Joystick: " & CStr(JNum) & " Button: Back / Left Trigger"
                         Case 128
                             Text = "Joystick: " & CStr(JNum) & " Button: Start / Right Trigger"
+                            'A Combos
+                        Case 3
+                            Text = "Joystick: " & CStr(JNum) & " Button: A+B / Square+X"
+                        Case 5
+                            Text = "Joystick: " & CStr(JNum) & " Button: A+X / Square+Circle"
+                        Case 9
+                            Text = "Joystick: " & CStr(JNum) & " Button: A+Y / Square+Triangle"
+                            'B Combos
+                        Case 6
+                            Text = "Joystick: " & CStr(JNum) & " Button: B+X / X+Circle"
+                        Case 10
+                            Text = "Joystick: " & CStr(JNum) & " Button: B+Y / X+Triangle"
+                            'C Combos
+                        Case 12
+                            Text = "Joystick: " & CStr(JNum) & " Button: X+Y / Circle+Triangle"
                     End Select
                     If .dwButtons = 0 Then
 
@@ -108,6 +123,21 @@ Public Class Form1
                             Case "Joystick: " & CStr(JNum) & " Button: Back / Left Trigger"
                                 Text = ""
                             Case "Joystick: " & CStr(JNum) & " Button: Start / Right Trigger"
+                                Text = ""
+                                'A Combos
+                            Case "Joystick: " & CStr(JNum) & " Button: A+B / Square+X"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Button: A+X / Square+Circle"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Button: A+Y / Square+Triangle"
+                                Text = ""
+                                'B Combos
+                            Case "Joystick: " & CStr(JNum) & " Button: B+X / X+Circle"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " Button: B+Y / X+Triangle"
+                                Text = ""
+                                'C Combos
+                            Case "Joystick: " & CStr(JNum) & " Button: X+Y / Circle+Triangle"
                                 Text = ""
                         End Select
 
