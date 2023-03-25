@@ -102,6 +102,10 @@ Public Class Form1
                             'C Combos
                         Case 12
                             Text = "Joystick: " & CStr(JNum) & " Button: X+Y / Circle+Triangle"
+                            'PlayStation Both Triggers
+                        Case 192
+                            Text = "Joystick: " & CStr(JNum) & " Button: Back+Start / Left Trigger+Right Trigger"
+
                     End Select
                     If .dwButtons = 0 Then
 
@@ -138,6 +142,9 @@ Public Class Form1
                                 Text = ""
                                 'C Combos
                             Case "Joystick: " & CStr(JNum) & " Button: X+Y / Circle+Triangle"
+                                Text = ""
+                                'PlayStation Both Triggers
+                            Case "Joystick: " & CStr(JNum) & " Button: Back+Start / Left Trigger+Right Trigger"
                                 Text = ""
                         End Select
 
