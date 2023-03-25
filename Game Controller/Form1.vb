@@ -116,57 +116,55 @@ Public Class Form1
 
                     'D-Pad ************************************************************************
                     'The range of POV is 0 to 65535.
-                    '0 through 31500 to represent the angle, in degrees.
+                    '0 through 31500 is used to represent the angle.
                     'degrees = POV \ 100  315° = 31500 \ 100
-                    If .dwPOV = 9000 Then
+                    If .dwPOV = 9000 Then '90°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Right"
                     End If
-                    If .dwPOV = 27000 Then
+                    If .dwPOV = 27000 Then '270°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Left"
                     End If
-                    If .dwPOV = 0 Then
+                    If .dwPOV = 0 Then '0°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Up"
                     End If
-                    If .dwPOV = 18000 Then
+                    If .dwPOV = 18000 Then '180°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Down"
                     End If
-                    If .dwPOV = 31500 Then
+                    If .dwPOV = 31500 Then '315°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Up Left"
                     End If
-                    If .dwPOV = 4500 Then
+                    If .dwPOV = 4500 Then '45°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Up Right"
                     End If
-                    If .dwPOV = 22500 Then
+                    If .dwPOV = 22500 Then '225°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Down Left"
                     End If
-                    If .dwPOV = 13500 Then
+                    If .dwPOV = 13500 Then '135°
                         Text = "Joystick: " & CStr(JNum) & " D-Pad: Down Right"
                     End If
+                    'Has the POV pad returned to it neutral position?
                     If .dwPOV = 65535 Then
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Up" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Up Left" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Up Right" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Down" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Down Left" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Down Right" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Left" Then
-                            Text = ""
-                        End If
-                        If Text = "Joystick: " & CStr(JNum) & " D-Pad: Right" Then
-                            Text = ""
-                        End If
+                        'Yes, the POV pad has returned to it neutral position.
+
+                        Select Case Text
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Up"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Up Left"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Up Right"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Down"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Down Left"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Down Right"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Left"
+                                Text = ""
+                            Case "Joystick: " & CStr(JNum) & " D-Pad: Right"
+                                Text = ""
+                        End Select
+
                     End If
                     '******************************************************************************
 
