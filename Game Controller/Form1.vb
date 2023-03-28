@@ -344,7 +344,6 @@ Public Class Form1
                 If .dwUpos >= 1 And .dwUpos <= 15000 Then
                     'Yes, the right stick is in the left position.
 
-                    'If RightStickLeftTimeout = False Then
                     LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
 
                 End If
