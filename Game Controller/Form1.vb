@@ -112,7 +112,7 @@ Public Class Form1
 
         With ControllerData
 
-            '                                                               XBox / PlayStation
+            '                                                                            XBox / PlayStation
             'What buttons are down?
             Select Case .dwButtons
                 Case 1
@@ -336,51 +336,37 @@ Public Class Form1
 
         With ControllerData
 
-            'Are the PlayStation trigger buttons up?
-            If .dwButtons <> 128 And .dwButtons <> 192 Then 'PS:Triggers
-                'Yes, the PlayStation trigger buttons are up.
+            'Is the right stick in the left position?
+            If .dwUpos >= 0 And .dwUpos <= 15000 Then
+                'Yes, the right stick is in the left position.
 
-                'Is the right stick in the left position?
-                If .dwUpos >= 1 And .dwUpos <= 15000 Then
-                    'Yes, the right stick is in the left position.
-
-                    LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
-
-                End If
-
-                'Is the right stick in the right position?
-                If .dwUpos >= 50000 Then
-                    'Yes, the right stick is in the right position.
-
-                    LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
-
-                End If
-
-                'Has the right stick returned to it neutral position on the x-axis?
-                If .dwUpos > 15000 Then
-                    If .dwUpos < 50000 Then
-                        'Yes, the right stick has returned to it neutral position on the x-axis.
-
-                        Select Case LabelRightStick.Text
-                            Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
-                                LabelRightStick.Text = ""
-                            Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
-                                LabelRightStick.Text = ""
-                        End Select
-                    End If
-                End If
-
-            Else
-                'No, the PlayStation trigger buttons are not up.
-
-                Select Case LabelRightStick.Text
-                    Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
-                        LabelRightStick.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
-                        LabelRightStick.Text = ""
-                End Select
+                LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
 
             End If
+
+            'Is the right stick in the right position?
+            If .dwUpos >= 50000 Then
+                'Yes, the right stick is in the right position.
+
+                LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
+
+            End If
+
+            'Has the right stick returned to it neutral position on the x-axis?
+            If .dwUpos > 15000 Then
+                If .dwUpos < 50000 Then
+                    'Yes, the right stick has returned to it neutral position on the x-axis.
+
+                    Select Case LabelRightStick.Text
+                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
+                            LabelRightStick.Text = ""
+                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
+                            LabelRightStick.Text = ""
+                    End Select
+                End If
+            End If
+
+
 
             'Is the right stick in the up position?
             If .dwRpos >= 0 Then
