@@ -189,7 +189,7 @@ Public Class Form1
                 LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
             Case 31500 '315° Up Left
                 LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
-            Case 65535 'Neutral position
+            Case 65535 'Neutral
                 LabelDPad.Text = ""
         End Select
 
@@ -204,7 +204,6 @@ Public Class Form1
             'The left thumbstick is in the left position.
 
             LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Left"
-
 
         ElseIf ControllerData.dwXpos >= NeutralEnd Then
             'The left thumbstick is in the right position.
@@ -223,7 +222,6 @@ Public Class Form1
             'The left thumbstick is in the up position.
 
             LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Up"
-
 
         ElseIf ControllerData.dwYpos >= NeutralEnd Then
             'The left thumbstick is in the down position.
@@ -284,19 +282,19 @@ Public Class Form1
     Private Sub UpdateTriggerPosition()
         'The range on the Z-axis is 0 to 65535.
 
-        'What position are the Xbox triggers in on the Z-axis?
+        'Is one of the Xbox triggers down?
         If ControllerData.dwZpos <= NeutralStart Then
-            'The right trigger is in the down position.
+            'The right trigger is down only.
 
             LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Stick: Left"
 
         ElseIf ControllerData.dwZpos >= NeutralEnd Then
-            'The left trigger is in the down position.
+            'The left trigger is down only.
 
             LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Stick: Right"
 
         Else
-            'The triggers are is in the neutral position.
+            'The triggers are either both up or down.
 
             LabelZaxis.Text = ""
 
