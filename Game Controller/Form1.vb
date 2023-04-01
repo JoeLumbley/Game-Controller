@@ -147,21 +147,21 @@ Public Class Form1
             Case 128
                 LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Start / Right Trigger"
             Case 3
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+B / Square+X"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: A+B / Square+X"
             Case 5
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+X / Square+Circle"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: A+X / Square+Circle"
             Case 9
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+Y / Square+Triangle"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: A+Y / Square+Triangle"
             Case 6
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+X / X+Circle"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: B+X / X+Circle"
             Case 10
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+Y / X+Triangle"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: B+Y / X+Triangle"
             Case 12
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: X+Y / Circle+Triangle"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: X+Y / Circle+Triangle"
             Case 48
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Left Bumper+Right Bumper"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: Left Bumper+Right Bumper"
             Case 192
-                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back+Start / Left Trigger+Right Trigger"
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Buttons: Back+Start / Left Trigger+Right Trigger"
         End Select
 
     End Sub
@@ -203,12 +203,12 @@ Public Class Form1
         If ControllerData.dwXpos <= NeutralStart Then
             'The left thumbstick is in the left position.
 
-            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Left"
+            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Thumbstick: Left"
 
         ElseIf ControllerData.dwXpos >= NeutralEnd Then
             'The left thumbstick is in the right position.
 
-            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Right"
+            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Thumbstick: Right"
 
         Else
             'The left thumbstick is in the neutral position.
@@ -221,12 +221,12 @@ Public Class Form1
         If ControllerData.dwYpos <= NeutralStart Then
             'The left thumbstick is in the up position.
 
-            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Up"
+            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Thumbstick: Up"
 
         ElseIf ControllerData.dwYpos >= NeutralEnd Then
             'The left thumbstick is in the down position.
 
-            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Down"
+            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Thumbstick: Down"
 
         Else
             'The left thumbstick is in the neutral position.
@@ -245,12 +245,12 @@ Public Class Form1
         If ControllerData.dwUpos <= NeutralStart Then
             'The right thumbstick is in the left position.
 
-            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
+            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Thumbstick: Left"
 
         ElseIf ControllerData.dwUpos >= NeutralEnd Then
             'The right thumbstick is in the right position.
 
-            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
+            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Thumbstick: Right"
 
         Else
             'The right thumbstick is in the neutral position.
@@ -263,12 +263,12 @@ Public Class Form1
         If ControllerData.dwRpos <= NeutralStart Then
             'The right thumbstick is in the up position.
 
-            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Up"
+            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Thumbstick: Up"
 
         ElseIf ControllerData.dwRpos >= NeutralEnd Then
             'The right thumbstick is in the down position.
 
-            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Down"
+            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Thumbstick: Down"
 
         Else
             'The right thumbstick is in the neutral position.
@@ -286,12 +286,12 @@ Public Class Form1
         If ControllerData.dwZpos <= NeutralStart Then
             'The right trigger is down only.
 
-            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Stick: Left"
+            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Thumbstick: Left"
 
         ElseIf ControllerData.dwZpos >= NeutralEnd Then
             'The left trigger is down only.
 
-            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Stick: Right"
+            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Thumbstick: Right"
 
         Else
             'The triggers are either both up or down.
