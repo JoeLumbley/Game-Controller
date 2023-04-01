@@ -47,19 +47,29 @@ Public Class Form1
         Public dwReserved2 As Integer
     End Structure
 
-    Dim ControllerData As JOYINFOEX
+    Private Const NeutralStart = 21845
+    Private Const NeutralEnd = 43690
 
-    Dim ControllerNumber As Long = 0
+    Private ControllerData As JOYINFOEX
+
+    Private ControllerNumber As Long = 0
+
+    Private Connected(0 To 15) As Boolean
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Text = "Game Controller"
+        Text = "Game Controller - Code with Joe"
 
         LabelButtons.Text = ""
         LabelDPad.Text = ""
-        LabelLeftStick.Text = ""
-        LabelRightStick.Text = ""
-        LabelXboxTriggers.Text = ""
+
+        LabelXaxis.Text = ""
+        LabelYaxis.Text = ""
+
+        LabelUaxis.Text = ""
+        LabelRaxis.Text = ""
+
+        LabelZaxis.Text = ""
 
         ControllerData.dwSize = 64
         ControllerData.dwFlags = 255 ' Get all the data.
@@ -83,15 +93,21 @@ Public Class Form1
 
                 If joyGetPosEx(ControllerNumber, ControllerData) = 0 Then
 
-                    GetRightStickData()
+                    UpdateRightStickPosition()
 
-                    GetLeftStickData()
+                    UpdateLeftThumbstickPosition()
 
-                    GetTriggerData()
+                    UpdateTriggerPosition()
 
-                    GetButtonData()
+                    UpdateButtonPosition()
 
-                    GetDPadData()
+                    UpdateDPadPosition()
+
+                    Connected(ControllerNumber) = True
+
+                Else
+
+                    Connected(ControllerNumber) = False
 
                 End If
 
@@ -107,348 +123,203 @@ Public Class Form1
 
     End Sub
 
-    Private Sub GetButtonData()
+    Private Sub UpdateButtonPosition()
         'The range of buttons is 0 to 255.
+        '                                                                            XBox / PlayStation
+        'What buttons are down?
+        Select Case ControllerData.dwButtons
+            Case 1
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A / Square"
+            Case 2
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B / X "
+            Case 4
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: X / Circle"
+            Case 8
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Y / Triangle"
+            Case 16
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Left Bumper"
+            Case 32
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Right Bumper"
+            Case 64
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back / Left Trigger"
+            Case 128
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Start / Right Trigger"
+            Case 3
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+B / Square+X"
+            Case 5
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+X / Square+Circle"
+            Case 9
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+Y / Square+Triangle"
+            Case 6
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+X / X+Circle"
+            Case 10
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+Y / X+Triangle"
+            Case 12
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: X+Y / Circle+Triangle"
+            Case 48
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Left Bumper+Right Bumper"
+            Case 192
+                LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back+Start / Left Trigger+Right Trigger"
+        End Select
 
-        With ControllerData
+        'Are all the buttons up?
+        If ControllerData.dwButtons = 0 Then
+            'Yes, all the buttons are up.
 
-            '                                                                            XBox / PlayStation
-            'What buttons are down?
-            Select Case .dwButtons
-                Case 1
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A / Square"
-                Case 2
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B / X "
-                Case 4
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: X / Circle"
-                Case 8
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Y / Triangle"
-                Case 16
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Left Bumper"
-                Case 32
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Right Bumper"
-                Case 64
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back / Left Trigger"
-                Case 128
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Start / Right Trigger"
-                Case 3
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+B / Square+X"
-                Case 5
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+X / Square+Circle"
-                Case 9
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A+Y / Square+Triangle"
-                Case 6
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+X / X+Circle"
-                Case 10
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: B+Y / X+Triangle"
-                Case 12
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: X+Y / Circle+Triangle"
-                Case 192
-                    LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back+Start / Left Trigger+Right Trigger"
-            End Select
+            LabelButtons.Text = ""
 
-            'Are all the buttons up?
-            If .dwButtons = 0 Then
-                'Yes, all the buttons are up.
-
-                Select Case LabelButtons.Text
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: A / Square"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: B / X "
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: X / Circle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Y / Triangle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: A"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Left Bumper"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Right Bumper"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Back / Left Trigger"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Start / Right Trigger"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: A+B / Square+X"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: A+X / Square+Circle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: A+Y / Square+Triangle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: B+X / X+Circle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: B+Y / X+Triangle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: X+Y / Circle+Triangle"
-                        LabelButtons.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " Button: Back+Start / Left Trigger+Right Trigger"
-                        LabelButtons.Text = ""
-                End Select
-
-            End If
-
-        End With
+        End If
 
     End Sub
 
-    Private Sub GetDPadData()
+    Private Sub UpdateDPadPosition()
         'The range of POV is 0 to 65535.
         '0 through 31500 is used to represent the angle.
         'degrees = POV \ 100  315° = 31500 \ 100
 
-        With ControllerData
+        'What buttons are down?
+        If ControllerData.dwPOV = 9000 Then '90°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Right"
+        End If
+        If ControllerData.dwPOV = 27000 Then '270°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
+        End If
+        If ControllerData.dwPOV = 0 Then '0°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up"
+        End If
+        If ControllerData.dwPOV = 18000 Then '180°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down"
+        End If
+        If ControllerData.dwPOV = 31500 Then '315°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
+        End If
+        If ControllerData.dwPOV = 4500 Then '45°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Right"
+        End If
+        If ControllerData.dwPOV = 22500 Then '225°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Left"
+        End If
+        If ControllerData.dwPOV = 13500 Then '135°
+            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Right"
+        End If
 
-            'What buttons are down?
-            If .dwPOV = 9000 Then '90°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Right"
-            End If
-            If .dwPOV = 27000 Then '270°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
-            End If
-            If .dwPOV = 0 Then '0°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up"
-            End If
-            If .dwPOV = 18000 Then '180°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down"
-            End If
-            If .dwPOV = 31500 Then '315°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
-            End If
-            If .dwPOV = 4500 Then '45°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Right"
-            End If
-            If .dwPOV = 22500 Then '225°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Left"
-            End If
-            If .dwPOV = 13500 Then '135°
-                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Right"
-            End If
+        'Has the POV pad returned to it neutral position?
+        If ControllerData.dwPOV = 65535 Then
+            'Yes, the POV pad has returned to it neutral position.
 
-            'Has the POV pad returned to it neutral position?
-            If .dwPOV = 65535 Then
-                'Yes, the POV pad has returned to it neutral position.
+            LabelDPad.Text = ""
 
-                Select Case LabelDPad.Text
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Up"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Right"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Down"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Left"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Right"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
-                        LabelDPad.Text = ""
-                    Case "Controller: " & CStr(ControllerNumber) & " D-Pad: Right"
-                        LabelDPad.Text = ""
-                End Select
-
-            End If
-
-        End With
+        End If
 
     End Sub
 
-    Private Sub GetLeftStickData()
-        'The range on the y-axis is 0 to 65535.
-        'The range on the x-axis is 0 to 65535.
+    Private Sub UpdateLeftThumbstickPosition()
+        'The range on the X-axis is 0 to 65535.
+        'The range on the Y-axis is 0 to 65535.
 
-        With ControllerData
+        'What position is the left thumbstick in on the X-axis?
+        If ControllerData.dwXpos <= NeutralStart Then
+            'The left thumbstick is in the left position.
 
-            'Is the left stick in the up position?
-            If .dwYpos >= 0 Then
-                If .dwYpos <= 10000 Then
-                    'Yes, the left stick is in the up position.
+            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Left"
 
-                    LabelLeftStick.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Up"
 
-                End If
-            End If
+        ElseIf ControllerData.dwXpos >= NeutralEnd Then
+            'The left thumbstick is in the right position.
 
-            'Is the left stick in the down position?
-            If .dwYpos >= 55000 Then
-                'Yes, the left stick is in the down position.
+            LabelXaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Right"
 
-                LabelLeftStick.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Down"
+        Else
+            'The left thumbstick is in the neutral position.
 
-            End If
+            LabelXaxis.Text = ""
 
-            'Has the left stick returned to it neutral position on the y-axis?
-            If .dwYpos > 10000 Then
-                If .dwYpos < 55000 Then
-                    'Yes, the left stick has returned to it neutral position y-axis.
+        End If
 
-                    Select Case LabelLeftStick.Text
-                        Case "Controller: " & CStr(ControllerNumber) & " Left Stick: Down"
-                            LabelLeftStick.Text = ""
-                        Case "Controller: " & CStr(ControllerNumber) & " Left Stick: Up"
-                            LabelLeftStick.Text = ""
-                    End Select
+        'What position is the left thumbstick in on the Y-axis?
+        If ControllerData.dwYpos <= NeutralStart Then
+            'The left thumbstick is in the up position.
 
-                End If
-            End If
+            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Up"
 
-            'Is the left stick in the left position?
-            If .dwXpos >= 0 Then
-                If .dwXpos <= 10000 Then
-                    'Yes, the left stick is in the left position.
 
-                    LabelLeftStick.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Left"
+        ElseIf ControllerData.dwYpos >= NeutralEnd Then
+            'The left thumbstick is in the down position.
 
-                End If
-            End If
+            LabelYaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Down"
 
-            'Is the left stick in the right position?
-            If .dwXpos >= 55000 Then
-                'Yes, the left stick is in the right position.
+        Else
+            'The left thumbstick is in the neutral position.
 
-                LabelLeftStick.Text = "Controller: " & CStr(ControllerNumber) & " Left Stick: Right"
+            LabelYaxis.Text = ""
 
-            End If
-
-            'Has the left stick returned to it neutral position on the x-axis?
-            If .dwXpos > 10000 Then
-                If .dwXpos < 55000 Then
-                    'Yes, the left stick has returned to it neutral position on the x-axis.
-
-                    Select Case LabelLeftStick.Text
-                        Case "Controller: " & CStr(ControllerNumber) & " Left Stick: Left"
-                            LabelLeftStick.Text = ""
-                        Case "Controller: " & CStr(ControllerNumber) & " Left Stick: Right"
-                            LabelLeftStick.Text = ""
-                    End Select
-
-                End If
-            End If
-
-        End With
+        End If
 
     End Sub
 
-    Private Sub GetRightStickData()
-        'The range on the r-axis is 0 to 65535.
-        'The range on the u-axis is 0 to 65535.
 
-        With ControllerData
+    Private Sub UpdateRightStickPosition()
+        'The range on the U-axis is 0 to 65535.
+        'The range on the R-axis is 0 to 65535.
 
-            'Is the right stick in the left position?
-            If .dwUpos >= 0 And .dwUpos <= 15000 Then
-                'Yes, the right stick is in the left position.
+        'What position is the right thumbstick in on the U-axis?
+        If ControllerData.dwUpos <= NeutralStart Then
+            'The right thumbstick is in the left position.
 
-                LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
+            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
 
-            End If
+        ElseIf ControllerData.dwUpos >= NeutralEnd Then
+            'The right thumbstick is in the right position.
 
-            'Is the right stick in the right position?
-            If .dwUpos >= 50000 Then
-                'Yes, the right stick is in the right position.
+            LabelUaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
 
-                LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
+        Else
+            'The right thumbstick is in the neutral position.
 
-            End If
+            LabelUaxis.Text = ""
 
-            'Has the right stick returned to it neutral position on the x-axis?
-            If .dwUpos > 15000 Then
-                If .dwUpos < 50000 Then
-                    'Yes, the right stick has returned to it neutral position on the x-axis.
+        End If
 
-                    Select Case LabelRightStick.Text
-                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Left"
-                            LabelRightStick.Text = ""
-                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Right"
-                            LabelRightStick.Text = ""
-                    End Select
-                End If
-            End If
+        'What position is the right thumbstick in on the R-axis?
+        If ControllerData.dwRpos <= NeutralStart Then
+            'The right thumbstick is in the up position.
 
+            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Up"
 
+        ElseIf ControllerData.dwRpos >= NeutralEnd Then
+            'The right thumbstick is in the down position.
 
-            'Is the right stick in the up position?
-            If .dwRpos >= 0 Then
-                If .dwRpos <= 15000 Then
-                    'Yes, the right stick is in the up position.
+            LabelRaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Down"
 
-                    LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Up"
+        Else
+            'The right thumbstick is in the neutral position.
 
-                End If
-            End If
+            LabelRaxis.Text = ""
 
-            'Is the right stick in the down position?
-            If .dwRpos >= 50000 Then
-                'Yes, the right stick is in the down position.
-
-                LabelRightStick.Text = "Controller: " & CStr(ControllerNumber) & " Right Stick: Down"
-
-            End If
-
-            'Has the right stick returned to it neutral position on the y-axis?
-            If .dwRpos > 15000 Then
-                If .dwRpos < 50000 Then
-                    'Yes, the right stick has returned to it neutral position y-axis.
-
-                    Select Case LabelRightStick.Text
-                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Down"
-                            LabelRightStick.Text = ""
-                        Case "Controller: " & CStr(ControllerNumber) & " Right Stick: Up"
-                            LabelRightStick.Text = ""
-                    End Select
-
-                End If
-            End If
-
-        End With
+        End If
 
     End Sub
 
-    Private Sub GetTriggerData()
-        'The range on the z-axis is 0 to 65535.
+    Private Sub UpdateTriggerPosition()
+        'The range on the Z-axis is 0 to 65535.
 
-        With ControllerData
+        'What position are the Xbox triggers in on the Z-axis?
+        If ControllerData.dwZpos <= NeutralStart Then
+            'The right trigger is in the down position.
 
-            'Xbox Triggers
-            'Is the right trigger down?
-            If .dwZpos >= 0 Then
-                If .dwZpos <= 10000 Then
-                    'Yes, the right trigger is down.
+            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Stick: Left"
 
-                    LabelXboxTriggers.Text = "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Stick: Left"
+        ElseIf ControllerData.dwZpos >= NeutralEnd Then
+            'The left trigger is in the down position.
 
-                End If
-            End If
+            LabelZaxis.Text = "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Stick: Right"
 
-            'Is the left trigger down?
-            If .dwZpos >= 55000 Then
-                'Yes, the left trigger is down.
+        Else
+            'The triggers are is in the neutral position.
 
-                LabelXboxTriggers.Text = "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Stick: Right"
+            LabelZaxis.Text = ""
 
-            End If
-
-            'Have the triggers returned to their neutral positions?
-            If .dwZpos > 10000 Then
-                If .dwZpos < 55000 Then
-                    'Yes, the triggers have returned to their neutral positions.
-
-                    Select Case LabelXboxTriggers.Text
-                        Case "Controller: " & CStr(ControllerNumber) & " Left Trigger / Right Stick: Right"
-
-                            LabelXboxTriggers.Text = ""
-
-                        Case "Controller: " & CStr(ControllerNumber) & " Right Trigger / Right Stick: Left"
-
-                            LabelXboxTriggers.Text = ""
-
-                    End Select
-
-                End If
-            End If
-
-        End With
+        End If
 
     End Sub
 
