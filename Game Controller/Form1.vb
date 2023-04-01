@@ -93,15 +93,15 @@ Public Class Form1
 
                 If joyGetPosEx(ControllerNumber, ControllerData) = 0 Then
 
-                    UpdateRightStickPosition()
+                    UpdateButtonPosition()
+
+                    UpdateDPadPosition()
 
                     UpdateLeftThumbstickPosition()
 
                     UpdateTriggerPosition()
 
-                    UpdateButtonPosition()
-
-                    UpdateDPadPosition()
+                    UpdateRightThumbstickPosition()
 
                     Connected(ControllerNumber) = True
 
@@ -128,6 +128,8 @@ Public Class Form1
         '                                                                            XBox / PlayStation
         'What buttons are down?
         Select Case ControllerData.dwButtons
+            Case 0 'All the buttons are up.
+                LabelButtons.Text = ""
             Case 1
                 LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: A / Square"
             Case 2
@@ -162,14 +164,6 @@ Public Class Form1
                 LabelButtons.Text = "Controller: " & CStr(ControllerNumber) & " Button: Back+Start / Left Trigger+Right Trigger"
         End Select
 
-        'Are all the buttons up?
-        If ControllerData.dwButtons = 0 Then
-            'Yes, all the buttons are up.
-
-            LabelButtons.Text = ""
-
-        End If
-
     End Sub
 
     Private Sub UpdateDPadPosition()
@@ -177,39 +171,27 @@ Public Class Form1
         '0 through 31500 is used to represent the angle.
         'degrees = POV \ 100  315° = 31500 \ 100
 
-        'What buttons are down?
-        If ControllerData.dwPOV = 9000 Then '90°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Right"
-        End If
-        If ControllerData.dwPOV = 27000 Then '270°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
-        End If
-        If ControllerData.dwPOV = 0 Then '0°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up"
-        End If
-        If ControllerData.dwPOV = 18000 Then '180°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down"
-        End If
-        If ControllerData.dwPOV = 31500 Then '315°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
-        End If
-        If ControllerData.dwPOV = 4500 Then '45°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Right"
-        End If
-        If ControllerData.dwPOV = 22500 Then '225°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Left"
-        End If
-        If ControllerData.dwPOV = 13500 Then '135°
-            LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Right"
-        End If
-
-        'Has the POV pad returned to it neutral position?
-        If ControllerData.dwPOV = 65535 Then
-            'Yes, the POV pad has returned to it neutral position.
-
-            LabelDPad.Text = ""
-
-        End If
+        'What position is the D-Pad in?
+        Select Case ControllerData.dwPOV
+            Case 0 '0° Up
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up"
+            Case 4500 '45° Up Right
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Right"
+            Case 9000 '90° Right
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Right"
+            Case 13500 '135° Down Right
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Right"
+            Case 18000 '180° Down
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down"
+            Case 22500 '225° Down Left
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Down Left"
+            Case 27000 '270° Left
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Left"
+            Case 31500 '315° Up Left
+                LabelDPad.Text = "Controller: " & CStr(ControllerNumber) & " D-Pad: Up Left"
+            Case 65535 'Neutral position
+                LabelDPad.Text = ""
+        End Select
 
     End Sub
 
@@ -257,8 +239,7 @@ Public Class Form1
 
     End Sub
 
-
-    Private Sub UpdateRightStickPosition()
+    Private Sub UpdateRightThumbstickPosition()
         'The range on the U-axis is 0 to 65535.
         'The range on the R-axis is 0 to 65535.
 
