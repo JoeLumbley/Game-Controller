@@ -52,7 +52,7 @@ Public Class Form1
 
     Private ControllerData As JOYINFOEX
 
-    Private ControllerNumber As Long = 0
+    Private ControllerNumber As Integer = 0
 
     Private Connected(0 To 15) As Boolean
 
