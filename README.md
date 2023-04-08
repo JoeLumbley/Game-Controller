@@ -1,5 +1,2 @@
 # Game Controller
-This is an example app showing how to use Xbox and PlayStation controllers in VB .NET.
-Written this year 2023 actually works on Windows 10 64-Bit.
-I'm working on a video to explain the code on my YouTube channel.
-https://www.youtube.com/@codewithjoe6074
+This is an example application that demonstrates how to use Xbox and PlayStation controllers in VB.NET. It was written in 2023 and works on Windows 10 and 11 64-Bit. I’m currently working on a video that explains the code in more detail on my YouTube channel at https://www.youtube.com/@codewithjoe6074.
