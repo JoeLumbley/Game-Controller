@@ -31,6 +31,7 @@ Partial Class Form1
         LabelUaxis = New Label()
         LabelYaxis = New Label()
         LabelRaxis = New Label()
+        Timer2 = New Timer(components)
         SuspendLayout()
         ' 
         ' Timer1
@@ -99,6 +100,9 @@ Partial Class Form1
         LabelRaxis.TabIndex = 7
         LabelRaxis.Text = "LabelRaxis"
         ' 
+        ' Timer2
+        ' 
+        ' 
         ' Form1
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
@@ -125,4 +129,5 @@ Partial Class Form1
     Friend WithEvents LabelUaxis As Label
     Friend WithEvents LabelYaxis As Label
     Friend WithEvents LabelRaxis As Label
+    Friend WithEvents Timer2 As Timer
 End Class
