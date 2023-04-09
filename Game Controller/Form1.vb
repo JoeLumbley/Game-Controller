@@ -112,32 +112,43 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        InitializeApp()
+
+    End Sub
+
+    Private Sub InitializeApp()
+
         Text = "Game Controller - Code with Joe"
 
-        LabelButtons.Text = ""
-        LabelDPad.Text = ""
+        InitializeLabels()
 
-        LabelXaxis.Text = ""
-        LabelYaxis.Text = ""
+        InitializeControllerData()
 
-        LabelUaxis.Text = ""
-        LabelRaxis.Text = ""
+        InitializeTimer1()
 
-        LabelZaxis.Text = ""
+        InitializeTimer2()
 
-        ControllerData.dwSize = 64
-        ControllerData.dwFlags = 255 ' Get all the data.
+    End Sub
+
+    Private Sub InitializeTimer1()
 
         Timer1.Interval = 32 'Polling frequency in milliseconds.
-        Timer1.Start()
 
-        Timer2.Interval = 400
+        Timer1.Start()
 
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
 
         GetControllerData()
+
+    End Sub
+
+    Private Sub InitializeControllerData()
+
+        ControllerData.dwSize = 64
+
+        ControllerData.dwFlags = 255 ' Get all the data.
 
     End Sub
 
@@ -459,7 +470,7 @@ Public Class Form1
         'The range on the Z-axis is 0 to 65535.
 
         If IsPlayStation(ControllerNumber) = True Then
-            'PS
+
             'What position is the right thumbstick in on the Z-axis?
             If ControllerData.dwZpos <= NeutralStart Then
                 'The right thumbstick is in the left position.
@@ -479,7 +490,7 @@ Public Class Form1
             End If
 
         Else
-            'XB
+
             'Is one of the Xbox triggers down?
             If ControllerData.dwZpos <= NeutralStart Then
                 'The right trigger is down only.
@@ -499,6 +510,30 @@ Public Class Form1
             End If
 
         End If
+
+    End Sub
+
+    Private Sub InitializeLabels()
+
+        LabelButtons.Text = ""
+
+        LabelDPad.Text = ""
+
+        LabelXaxis.Text = ""
+
+        LabelYaxis.Text = ""
+
+        LabelZaxis.Text = ""
+
+        LabelUaxis.Text = ""
+
+        LabelRaxis.Text = ""
+
+    End Sub
+
+    Private Sub InitializeTimer2()
+
+        Timer2.Interval = 400
 
     End Sub
 
