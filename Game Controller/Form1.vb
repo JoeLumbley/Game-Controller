@@ -1,12 +1,13 @@
 ﻿'Game Controller
-'This is an example app showing how to use Xbox And PlayStation controllers in VB.NET.
-'Written this year 2023 actually works on Windows 10 and 11 64-Bit.
-'I'm working on a video to explain the code on my YouTube channel.
-'https://www.youtube.com/@codewithjoe6074
+'
+'This is an example application that demonstrates how to use Xbox and
+'PlayStation controllers in VB.NET. It was written in 2023 and works on
+'Windows 10 and 11. I’m currently working on a video that explains the code in
+'more detail on my YouTube channel at https://www.youtube.com/@codewithjoe6074.
 '
 'MIT License
-'Copyright(c) 2023 Joseph Lumbley
-
+'Copyright(c) 2023 Joseph W. Lumbley
+'
 'Permission Is hereby granted, free Of charge, to any person obtaining a copy
 'of this software And associated documentation files (the "Software"), to deal
 'in the Software without restriction, including without limitation the rights
@@ -29,13 +30,19 @@ Imports System.Runtime.InteropServices
 
 Public Class Form1
 
+    Private ControllerNumber As Integer = 0
+
+    Public Const PlayStation As Integer = 1356 'Manufacturer ID
+
+    Private ReadOnly IsPlayStation(0 To 15) As Boolean
+
     <DllImport("winmm.dll", EntryPoint:="joyGetDevCapsW")>
     Private Shared Function joyGetDevCapsW(ByVal uJoyID As Integer, ByRef pjc As JOYCAPSW, ByVal cbjc As Integer) As UInteger
     End Function
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Unicode)>
     Public Structure JOYCAPSW
-        Public wMid As UShort
+        Public wMid As UShort 'Manufacturer ID
         Public wPid As UShort
         <MarshalAs(UnmanagedType.ByValTStr, SizeConst:=32)> Public szPname As String
         Public wXmin As UInteger
@@ -71,7 +78,15 @@ Public Class Form1
         Has_PointOfView_Continuous = &H40
     End Enum
 
-    Public Const PlayStation As Integer = 1356
+    Private ControllerCapabilities As New JOYCAPSW
+
+    'The start of the thumbstick neutral zone.
+    Private Const NeutralStart = 21845
+
+    'The end of the thumbstick neutral zone.
+    Private Const NeutralEnd = 43690
+
+    Private ReadOnly Connected(0 To 15) As Boolean
 
     <DllImport("winmm.dll", EntryPoint:="joyGetPosEx")>
     Private Shared Function joyGetPosEx(ByVal uJoyID As Integer, ByRef pji As JOYINFOEX) As Integer
@@ -93,18 +108,7 @@ Public Class Form1
         Public dwReserved2 As Integer
     End Structure
 
-    Private Const NeutralStart = 21845
-    Private Const NeutralEnd = 43690
-
     Private ControllerData As JOYINFOEX
-
-    Private ControllerNumber As Integer = 0
-
-    Private ReadOnly Connected(0 To 15) As Boolean
-
-    Private ReadOnly IsPlayStation(0 To 15) As Boolean
-
-    Private ControllerCapabilities As New JOYCAPSW
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -174,7 +178,6 @@ Public Class Form1
             End Try
 
         Next
-
 
     End Sub
 
