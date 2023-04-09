@@ -200,119 +200,132 @@ Public Class Form1
     End Sub
 
     Private Sub UpdateButtonPosition()
-        'The range of buttons is 0 to 255.
 
-        If IsPlayStation(ControllerNumber) = True Then
-            'PS
-            'What buttons are down?
-            Select Case ControllerData.dwButtons
-                Case 0 'All the buttons are up.
-                Case 1 'A / Square button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Square"
-                    Timer2.Start()
-                Case 2 'B / X button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: X "
-                    Timer2.Start()
-                Case 4 'X / Circle button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Circle"
-                    Timer2.Start()
-                Case 8 'Y / Triangle button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Triangle"
-                    Timer2.Start()
-                Case 16 'Left Bumper is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Bumper"
-                    Timer2.Start()
-                Case 32 'Right Bumper is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Bumper"
-                    Timer2.Start()
-                Case 64 'Back / Left Trigger is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Trigger"
-                    Timer2.Start()
-                Case 128 'Start / Right Trigger is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Trigger"
-                    Timer2.Start()
-                Case 3 'A+B / Square+X buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+X"
-                    Timer2.Start()
-                Case 5 'A+X / Square+Circle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+Circle"
-                    Timer2.Start()
-                Case 9 'A+Y / Square+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+Triangle"
-                    Timer2.Start()
-                Case 6 'B+X / X+Circle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Circle"
-                    Timer2.Start()
-                Case 10 'B+Y / X+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Triangle"
-                    Timer2.Start()
-                Case 12 'X+Y / Circle+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Circle+Triangle"
-                    Timer2.Start()
-                Case 48 'Left Bumper+Right Bumper buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left Bumper+Right Bumper"
-                    Timer2.Start()
-                Case 192 'Back+Start / Left Trigger+Right Trigger are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left Trigger+Right Trigger"
-                    Timer2.Start()
-            End Select
+        If IsPlayStation(ControllerNumber) = False Then
+
+            UpdateXboxButtonPosition()
 
         Else
-            'XB
-            'What buttons are down?
-            Select Case ControllerData.dwButtons
-                Case 0 'All the buttons are up.
-                Case 1 'A / Square button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: A"
-                    Timer2.Start()
-                Case 2 'B / X button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: B "
-                    Timer2.Start()
-                Case 4 'X / Circle button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: X"
-                    Timer2.Start()
-                Case 8 'Y / Triangle button is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Y"
-                    Timer2.Start()
-                Case 16 'Left Bumper is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Bumper"
-                    Timer2.Start()
-                Case 32 'Right Bumper is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Bumper"
-                    Timer2.Start()
-                Case 64 'Back / Left Trigger is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Back"
-                    Timer2.Start()
-                Case 128 'Start / Right Trigger is down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Start"
-                    Timer2.Start()
-                Case 3 'A+B / Square+X buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+B"
-                    Timer2.Start()
-                Case 5 'A+X / Square+Circle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+X"
-                    Timer2.Start()
-                Case 9 'A+Y / Square+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+Y"
-                    Timer2.Start()
-                Case 6 'B+X / X+Circle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: B+X"
-                    Timer2.Start()
-                Case 10 'B+Y / X+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: B+Y"
-                    Timer2.Start()
-                Case 12 'X+Y / Circle+Triangle buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Y"
-                    Timer2.Start()
-                Case 48 'Left Bumper+Right Bumper buttons are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left Bumper+Right Bumper"
-                    Timer2.Start()
-                Case 192 'Back+Start / Left Trigger+Right Trigger are down.
-                    LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Back+Start"
-                    Timer2.Start()
-            End Select
+
+            UpdatePlayStationButtonPosition()
 
         End If
+
+    End Sub
+
+    Private Sub UpdateXboxButtonPosition()
+        'The range of buttons is 0 to 255.
+
+        'What buttons are down?
+        Select Case ControllerData.dwButtons
+            Case 0 'All the buttons are up.
+            Case 1 'A button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: A"
+                Timer2.Start()
+            Case 2 'B button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: B "
+                Timer2.Start()
+            Case 4 'X button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: X"
+                Timer2.Start()
+            Case 8 'Y button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Y"
+                Timer2.Start()
+            Case 16 'Left Bumper is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Bumper"
+                Timer2.Start()
+            Case 32 'Right Bumper is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Bumper"
+                Timer2.Start()
+            Case 64 'Back button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Back"
+                Timer2.Start()
+            Case 128 'Start button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Start"
+                Timer2.Start()
+            Case 3 'A and b buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+B"
+                Timer2.Start()
+            Case 5 'A and x buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+X"
+                Timer2.Start()
+            Case 9 'A and y buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: A+Y"
+                Timer2.Start()
+            Case 6 'B and x buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: B+X"
+                Timer2.Start()
+            Case 10 'B and y buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: B+Y"
+                Timer2.Start()
+            Case 12 'X and y buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Y"
+                Timer2.Start()
+            Case 48 'Left and right bumpers are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left+Right Bumpers"
+                Timer2.Start()
+            Case 192 'Back+Start buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Back+Start"
+                Timer2.Start()
+        End Select
+
+    End Sub
+
+    Private Sub UpdatePlayStationButtonPosition()
+        'The range of buttons is 0 to 255.
+
+        'What buttons are down?
+        Select Case ControllerData.dwButtons
+            Case 0 'All the buttons are up.
+            Case 1 'Square button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Square"
+                Timer2.Start()
+            Case 2 'X button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: X"
+                Timer2.Start()
+            Case 4 'Circle button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Circle"
+                Timer2.Start()
+            Case 8 'Triangle button is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Triangle"
+                Timer2.Start()
+            Case 16 'Left bumper is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Bumper"
+                Timer2.Start()
+            Case 32 'Right bumper is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Bumper"
+                Timer2.Start()
+            Case 64 'Left trigger is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Trigger"
+                Timer2.Start()
+            Case 128 'Right trigger is down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Trigger"
+                Timer2.Start()
+            Case 3 'Square and x buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+X"
+                Timer2.Start()
+            Case 5 'Square and circle buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+Circle"
+                Timer2.Start()
+            Case 9 'Square and triangle buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Square+Triangle"
+                Timer2.Start()
+            Case 6 'X and circle buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Circle"
+                Timer2.Start()
+            Case 10 'X and triangle buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: X+Triangle"
+                Timer2.Start()
+            Case 12 'Circle and triangle buttons are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Circle+Triangle"
+                Timer2.Start()
+            Case 48 'Left and right bumpers are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left+Right Bumpers"
+                Timer2.Start()
+            Case 192 'Left and right triggers are down.
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left+Right Triggers"
+                Timer2.Start()
+        End Select
 
     End Sub
 
@@ -447,15 +460,15 @@ Public Class Form1
 
         If IsPlayStation(ControllerNumber) = True Then
             'PS
-            'What position is the right thumbstick in on the R-axis?
+            'What position is the right thumbstick in on the Z-axis?
             If ControllerData.dwZpos <= NeutralStart Then
-                'The right thumbstick is in the up position.
+                'The right thumbstick is in the left position.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Left"
                 Timer2.Start()
 
             ElseIf ControllerData.dwZpos >= NeutralEnd Then
-                'The right thumbstick is in the down position.
+                'The right thumbstick is in the right position.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Right"
                 Timer2.Start()
