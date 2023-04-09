@@ -106,7 +106,6 @@ Public Class Form1
 
     Private ControllerCapabilities As New JOYCAPSW
 
-
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Text = "Game Controller - Code with Joe"
@@ -147,7 +146,7 @@ Public Class Form1
 
                 If joyGetPosEx(ControllerNumber, ControllerData) = 0 Then
 
-                    UpdateControllerManufacturer()
+                    UpdateManufacturer()
 
                     UpdateButtonPosition()
 
@@ -180,7 +179,7 @@ Public Class Form1
 
     End Sub
 
-    Private Sub UpdateControllerManufacturer()
+    Private Sub UpdateManufacturer()
 
         If joyGetDevCapsW(ControllerNumber, ControllerCapabilities, Marshal.SizeOf(ControllerCapabilities)) = 0 Then
 
@@ -206,7 +205,6 @@ Public Class Form1
             'What buttons are down?
             Select Case ControllerData.dwButtons
                 Case 0 'All the buttons are up.
-                    'LabelButtons.Text = ""
                 Case 1 'A / Square button is down.
                     LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Square"
                     Timer2.Start()
@@ -262,7 +260,6 @@ Public Class Form1
             'What buttons are down?
             Select Case ControllerData.dwButtons
                 Case 0 'All the buttons are up.
-                    'LabelButtons.Text = ""
                 Case 1 'A / Square button is down.
                     LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: A"
                     Timer2.Start()
@@ -349,7 +346,7 @@ Public Class Form1
                 LabelDPad.Text = "Controller: " & ControllerNumber.ToString & " D-Pad: Up Left"
                 Timer2.Start()
             Case 65535 'Neutral
-                'LabelDPad.Text = ""
+
         End Select
 
     End Sub
@@ -375,8 +372,6 @@ Public Class Form1
         Else
             'The left thumbstick is in the neutral position.
 
-            'LabelXaxis.Text = ""
-
         End If
 
         'What position is the left thumbstick in on the Y-axis?
@@ -394,8 +389,6 @@ Public Class Form1
 
         Else
             'The left thumbstick is in the neutral position.
-
-            'LabelYaxis.Text = ""
 
         End If
 
@@ -424,8 +417,6 @@ Public Class Form1
             Else
                 'The right thumbstick is in the neutral position.
 
-                'LabelUaxis.Text = ""
-
             End If
 
 
@@ -446,8 +437,6 @@ Public Class Form1
 
         Else
             'The right thumbstick is in the neutral position.
-
-            'LabelRaxis.Text = ""
 
         End If
 
@@ -474,8 +463,6 @@ Public Class Form1
             Else
                 'The right thumbstick is in the neutral position.
 
-                'LabelZaxis.Text = ""
-
             End If
 
         Else
@@ -495,8 +482,6 @@ Public Class Form1
 
             Else
                 'The triggers are either both up or down.
-
-                'LabelZaxis.Text = ""
 
             End If
 
