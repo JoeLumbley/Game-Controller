@@ -231,10 +231,10 @@ Public Class Form1
             Case 8 'Y button is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Y"
                 Timer2.Start()
-            Case 16 'Left Bumper is down.
+            Case 16 'Left bumper is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Left Bumper"
                 Timer2.Start()
-            Case 32 'Right Bumper is down.
+            Case 32 'Right bumper is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Right Bumper"
                 Timer2.Start()
             Case 64 'Back button is down.
@@ -264,7 +264,7 @@ Public Class Form1
             Case 48 'Left and right bumpers are down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Left+Right Bumpers"
                 Timer2.Start()
-            Case 192 'Back+Start buttons are down.
+            Case 192 'Back and start buttons are down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Buttons: Back+Start"
                 Timer2.Start()
         End Select
