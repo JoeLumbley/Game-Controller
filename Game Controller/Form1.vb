@@ -52,8 +52,8 @@ Public Class Form1
         Public wZmin As UInteger
         Public wZmax As UInteger
         Public wNumButtons As UInteger
-        Public wPeriodMin As UInteger
-        Public wPeriodMax As UInteger
+        Public wPeriodMin As UInteger 'Smallest polling frequency supported in milliseconds.
+        Public wPeriodMax As UInteger 'Largest polling frequency supported in milliseconds.
         Public wRmin As UInteger
         Public wRmax As UInteger
         Public wUmin As UInteger
@@ -128,7 +128,7 @@ Public Class Form1
         ControllerData.dwSize = 64
         ControllerData.dwFlags = 255 ' Get all the data.
 
-        Timer1.Interval = 32
+        Timer1.Interval = 32 'Polling frequency in milliseconds.
         Timer1.Start()
 
         Timer2.Interval = 400
