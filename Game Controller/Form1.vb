@@ -29,7 +29,8 @@ Imports System.Runtime.InteropServices
 
 Public Class Form1
 
-    <DllImport("winmm.dll", EntryPoint:="joyGetDevCapsW")> Private Shared Function joyGetDevCapsW(ByVal uJoyID As Integer, ByRef pjc As JOYCAPSW, ByVal cbjc As Integer) As UInteger
+    <DllImport("winmm.dll", EntryPoint:="joyGetDevCapsW")>
+    Private Shared Function joyGetDevCapsW(ByVal uJoyID As Integer, ByRef pjc As JOYCAPSW, ByVal cbjc As Integer) As UInteger
     End Function
 
     <StructLayout(LayoutKind.Sequential, CharSet:=CharSet.Unicode)>
@@ -72,9 +73,8 @@ Public Class Form1
 
     Public Const PlayStation As Integer = 1356
 
-    'Private Declare Function joyGetPosEx Lib "winmm.dll" (ByVal uJoyID As Integer, ByRef pji As JOYINFOEX) As Integer
-
-    <DllImport("winmm.dll", EntryPoint:="joyGetPosEx")> Private Shared Function joyGetPosEx(ByVal uJoyID As Integer, ByRef pji As JOYINFOEX) As Integer
+    <DllImport("winmm.dll", EntryPoint:="joyGetPosEx")>
+    Private Shared Function joyGetPosEx(ByVal uJoyID As Integer, ByRef pji As JOYINFOEX) As Integer
     End Function
 
     <StructLayout(LayoutKind.Sequential)> Public Structure JOYINFOEX
@@ -100,9 +100,9 @@ Public Class Form1
 
     Private ControllerNumber As Integer = 0
 
-    Private Connected(0 To 15) As Boolean
+    Private ReadOnly Connected(0 To 15) As Boolean
 
-    Private IsPlayStation(0 To 15) As Boolean
+    Private ReadOnly IsPlayStation(0 To 15) As Boolean
 
     Private ControllerCapabilities As New JOYCAPSW
 
@@ -126,7 +126,6 @@ Public Class Form1
 
         Timer1.Interval = 32
         Timer1.Start()
-
 
         Timer2.Interval = 400
 
@@ -407,7 +406,6 @@ Public Class Form1
                 LabelUaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Left"
                 Timer2.Start()
 
-
             ElseIf ControllerData.dwUpos >= NeutralEnd Then
                 'The right thumbstick is in the right position.
 
@@ -418,7 +416,6 @@ Public Class Form1
                 'The right thumbstick is in the neutral position.
 
             End If
-
 
         End If
 
