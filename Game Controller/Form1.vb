@@ -92,7 +92,8 @@ Public Class Form1
     Private Shared Function joyGetPosEx(ByVal uJoyID As Integer, ByRef pji As JOYINFOEX) As Integer
     End Function
 
-    <StructLayout(LayoutKind.Sequential)> Public Structure JOYINFOEX
+    <StructLayout(LayoutKind.Sequential)>
+    Public Structure JOYINFOEX
         Public dwSize As Integer
         Public dwFlags As Integer
         Public dwXpos As Integer 'Left Stick: Left / Right
