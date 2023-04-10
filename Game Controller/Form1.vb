@@ -534,11 +534,19 @@ Public Class Form1
 
     Private Sub InitializeTimer2()
 
-        Timer2.Interval = 400
+        Timer2.Interval = 400 'Label display time in milliseconds.
 
     End Sub
 
     Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
+
+        ClearLabels()
+
+        Timer2.Stop()
+
+    End Sub
+
+    Private Sub ClearLabels()
 
         LabelButtons.Text = ""
 
@@ -553,8 +561,6 @@ Public Class Form1
         LabelRaxis.Text = ""
 
         LabelZaxis.Text = ""
-
-        Timer2.Stop()
 
     End Sub
 
