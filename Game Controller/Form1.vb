@@ -577,14 +577,14 @@ End Class
 'Passing Structures
 'https://learn.microsoft.com/en-us/dotnet/framework/interop/passing-structures
 '
+'Strings used in Structures
+'https://learn.microsoft.com/en-us/dotnet/framework/interop/default-marshalling-for-strings#strings-used-in-structures
+'
 'joyGetDevCapsW Function
 'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetdevcapsw
 '
 'JOYCAPSW Structure
 'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/ns-joystickapi-joycapsw
-'
-'Strings used in Structures
-'https://learn.microsoft.com/en-us/dotnet/framework/interop/default-marshalling-for-strings#strings-used-in-structures
 '
 'joyGetPosEx Function
 'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetposex
@@ -597,3 +597,6 @@ End Class
 '
 'Windows Multimedia
 'https://learn.microsoft.com/en-us/windows/win32/multimedia/windows-multimedia-start-page
+'
+'Reading Input Data From Joystick in Visual Basic
+'https://social.msdn.microsoft.com/Forums/en-US/af28b35b-d756-4d87-94c6-ced882ab20a5/reading-input-data-from-joystick-in-visual-basic?forum=vbgeneral
