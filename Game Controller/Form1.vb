@@ -568,6 +568,15 @@ End Class
 
 'Learn more:
 '
+'Consuming Unmanaged DLL Functions
+'https://learn.microsoft.com/en-us/dotnet/framework/interop/consuming-unmanaged-dll-functions
+'
+'DllImportAttribute.EntryPoint Field
+'https://learn.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.dllimportattribute.entrypoint?view=net-7.0
+'
+'Passing Structures
+'https://learn.microsoft.com/en-us/dotnet/framework/interop/passing-structures
+'
 'joyGetDevCapsW Function
 'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetdevcapsw
 '
