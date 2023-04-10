@@ -32,7 +32,7 @@ Public Class Form1
 
     Private ControllerNumber As Integer = 0
 
-    Public Const PlayStation As Integer = 1356 'Manufacturer ID
+    Private Const PlayStation As Integer = 1356 'Manufacturer ID
 
     Private ReadOnly IsPlayStation(0 To 15) As Boolean
 
@@ -558,3 +558,19 @@ Public Class Form1
     End Sub
 
 End Class
+
+'Learn more:
+'joyGetDevCapsW Function
+'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetdevcapsw
+'JOYCAPSW Structure
+'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/ns-joystickapi-joycapsw
+'Strings used in Structures
+'https://learn.microsoft.com/en-us/dotnet/framework/interop/default-marshalling-for-strings#strings-used-in-structures
+'joyGetPosEx Function
+'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetposex
+'JOYINFOEX Structure
+'https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/ns-joystickapi-joyinfoex
+'Multimedia Input
+'https://learn.microsoft.com/en-us/windows/win32/Multimedia/multimedia-input
+'Windows Multimedia
+'https://learn.microsoft.com/en-us/windows/win32/multimedia/windows-multimedia-start-page
