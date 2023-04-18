@@ -121,7 +121,7 @@ Public Class Form1
 
         Text = "Game Controller - Code with Joe"
 
-        InitializeLabels()
+        ClearLabels()
 
         InitializeControllerData()
 
@@ -235,7 +235,7 @@ Public Class Form1
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: A"
                 Timer2.Start()
             Case 2 'B button is down.
-                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: B "
+                LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: B"
                 Timer2.Start()
             Case 4 'X button is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: X"
@@ -514,24 +514,6 @@ Public Class Form1
 
     End Sub
 
-    Private Sub InitializeLabels()
-
-        LabelButtons.Text = ""
-
-        LabelDPad.Text = ""
-
-        LabelXaxis.Text = ""
-
-        LabelYaxis.Text = ""
-
-        LabelZaxis.Text = ""
-
-        LabelUaxis.Text = ""
-
-        LabelRaxis.Text = ""
-
-    End Sub
-
     Private Sub InitializeTimer2()
 
         Timer2.Interval = 400 'Label display time in milliseconds.
@@ -556,11 +538,11 @@ Public Class Form1
 
         LabelYaxis.Text = ""
 
+        LabelZaxis.Text = ""
+
         LabelUaxis.Text = ""
 
         LabelRaxis.Text = ""
-
-        LabelZaxis.Text = ""
 
     End Sub
 
