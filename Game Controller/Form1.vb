@@ -98,18 +98,18 @@ Public Class Form1
         Public dwFlags As Integer
         Public dwXpos As Integer 'Left Stick: Left / Right
         Public dwYpos As Integer 'Left Stick: Up / Down
-        Public dwZpos As Integer 'Xbox: Triggers
+        Public dwZpos As Integer 'Xbox Triggers: Up / Down - PlayStation Right Stick: Left / Right
         Public dwRpos As Integer 'Right Stick: Up / Down
         Public dwUpos As Integer 'Right Stick: Left / Right
         Public dwVpos As Integer
         Public dwButtons As Integer
         Public dwButtonNumber As Integer
-        Public dwPOV As Integer 'D-Pad
+        Public dwPOV As Integer 'D Pad
         Public dwReserved1 As Integer
         Public dwReserved2 As Integer
     End Structure
 
-    Private ControllerData As JOYINFOEX
+    Private ControllerPosition As JOYINFOEX
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -147,9 +147,9 @@ Public Class Form1
 
     Private Sub InitializeControllerData()
 
-        ControllerData.dwSize = 64
+        ControllerPosition.dwSize = 64
 
-        ControllerData.dwFlags = 255 ' Get all the data.
+        ControllerPosition.dwFlags = 255 ' Get all the data.
 
     End Sub
 
@@ -159,7 +159,7 @@ Public Class Form1
 
             Try
 
-                If joyGetPosEx(ControllerNumber, ControllerData) = 0 Then
+                If joyGetPosEx(ControllerNumber, ControllerPosition) = 0 Then
 
                     UpdateManufacturer()
 
@@ -229,7 +229,7 @@ Public Class Form1
         'The range of buttons is 0 to 255.
 
         'What buttons are down?
-        Select Case ControllerData.dwButtons
+        Select Case ControllerPosition.dwButtons
             Case 0 'All the buttons are up.
             Case 1 'A button is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: A"
@@ -287,7 +287,7 @@ Public Class Form1
         'The range of buttons is 0 to 255.
 
         'What buttons are down?
-        Select Case ControllerData.dwButtons
+        Select Case ControllerPosition.dwButtons
             Case 0 'All the buttons are up.
             Case 1 'Square button is down.
                 LabelButtons.Text = "Controller: " & ControllerNumber.ToString & " Button: Square"
@@ -347,7 +347,7 @@ Public Class Form1
         'degrees = POV \ 100  315° = 31500 \ 100
 
         'What position is the D-Pad in?
-        Select Case ControllerData.dwPOV
+        Select Case ControllerPosition.dwPOV
             Case 0 '0° Up
                 LabelDPad.Text = "Controller: " & ControllerNumber.ToString & " D-Pad: Up"
                 Timer2.Start()
@@ -383,14 +383,14 @@ Public Class Form1
         'The range on the Y-axis is 0 to 65535.
 
         'What position is the left thumbstick in on the X-axis?
-        If ControllerData.dwXpos <= NeutralStart Then
+        If ControllerPosition.dwXpos <= NeutralStart Then
             'The left thumbstick is in the left position.
 
             LabelXaxis.Text = "Controller: " & ControllerNumber.ToString & " Left Thumbstick: Left"
             Timer2.Start()
 
 
-        ElseIf ControllerData.dwXpos >= NeutralEnd Then
+        ElseIf ControllerPosition.dwXpos >= NeutralEnd Then
             'The left thumbstick is in the right position.
 
             LabelXaxis.Text = "Controller: " & ControllerNumber.ToString & " Left Thumbstick: Right"
@@ -402,13 +402,13 @@ Public Class Form1
         End If
 
         'What position is the left thumbstick in on the Y-axis?
-        If ControllerData.dwYpos <= NeutralStart Then
+        If ControllerPosition.dwYpos <= NeutralStart Then
             'The left thumbstick is in the up position.
 
             LabelYaxis.Text = "Controller: " & ControllerNumber.ToString & " Left Thumbstick: Up"
             Timer2.Start()
 
-        ElseIf ControllerData.dwYpos >= NeutralEnd Then
+        ElseIf ControllerPosition.dwYpos >= NeutralEnd Then
             'The left thumbstick is in the down position.
 
             LabelYaxis.Text = "Controller: " & ControllerNumber.ToString & " Left Thumbstick: Down"
@@ -428,13 +428,13 @@ Public Class Form1
         If IsPlayStation(ControllerNumber) = False Then
 
             'What position is the right thumbstick in on the U-axis?
-            If ControllerData.dwUpos <= NeutralStart Then
+            If ControllerPosition.dwUpos <= NeutralStart Then
                 'The right thumbstick is in the left position.
 
                 LabelUaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Left"
                 Timer2.Start()
 
-            ElseIf ControllerData.dwUpos >= NeutralEnd Then
+            ElseIf ControllerPosition.dwUpos >= NeutralEnd Then
                 'The right thumbstick is in the right position.
 
                 LabelUaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Right"
@@ -448,13 +448,13 @@ Public Class Form1
         End If
 
         'What position is the right thumbstick in on the R-axis?
-        If ControllerData.dwRpos <= NeutralStart Then
+        If ControllerPosition.dwRpos <= NeutralStart Then
             'The right thumbstick is in the up position.
 
             LabelRaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Up"
             Timer2.Start()
 
-        ElseIf ControllerData.dwRpos >= NeutralEnd Then
+        ElseIf ControllerPosition.dwRpos >= NeutralEnd Then
             'The right thumbstick is in the down position.
 
             LabelRaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Down"
@@ -473,13 +473,13 @@ Public Class Form1
         If IsPlayStation(ControllerNumber) = True Then
 
             'What position is the right thumbstick in on the Z-axis?
-            If ControllerData.dwZpos <= NeutralStart Then
+            If ControllerPosition.dwZpos <= NeutralStart Then
                 'The right thumbstick is in the left position.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Left"
                 Timer2.Start()
 
-            ElseIf ControllerData.dwZpos >= NeutralEnd Then
+            ElseIf ControllerPosition.dwZpos >= NeutralEnd Then
                 'The right thumbstick is in the right position.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Thumbstick: Right"
@@ -493,13 +493,13 @@ Public Class Form1
         Else
 
             'Is one of the Xbox triggers down?
-            If ControllerData.dwZpos <= NeutralStart Then
+            If ControllerPosition.dwZpos <= NeutralStart Then
                 'The right trigger is down only.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Right Trigger"
                 Timer2.Start()
 
-            ElseIf ControllerData.dwZpos >= NeutralEnd Then
+            ElseIf ControllerPosition.dwZpos >= NeutralEnd Then
                 'The left trigger is down only.
 
                 LabelZaxis.Text = "Controller: " & ControllerNumber.ToString & " Left Trigger"
